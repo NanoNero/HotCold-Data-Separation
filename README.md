@@ -1,0 +1,9 @@
+# Implementing Hot-Cold RDF data separation for dynamic scenario
+
+This project is an implementation of the improved caching algorithm for identifying hot and cold data. The approach adopted for this purpose includes generating a log file for streaming queries using zipf distribution and collecting most frequently accessed triples by evaluating their access frequencies using Modified Exponential Smoothing (ES), a forecasting method. The dynamic scenario is implemented in Python 2.7, in a distributed computing system.  The query execution depends on the properties which are to be accessed. The
+implementation is performed using queries with the developed use cases for CityPulse weather observations from
+the city of Aarhus.
+
+The Improved Caching Algorithm (Kerry Taylor, Wei Emma Zhang, Quan Z. Sheng and Yongrui Qin | Identifying and caching hot triples for efficient RDF query processing) has been implemented in the hotcoldN.py, client.py and pcserver.py files. The former two files are run on a node different from the node on which the latter file is run.  The server node sets up a python socket and the client node connects to it. The server then reads and allocates queries on RDF data.  The server and the client execute queries that are allocated to them by accessing triples stored on a Postgres 8 server with PgAdmin III. Accessed triples are cached according to the Improved Caching Algorithm.  Triples accessed frequently are classified as hot data, and cold data otherwise.
+
+The Forward Algorithm (Radu Stoica Microsoft Research Justin J. Levandoski, Per-Ake Larson | Identifying hot and cold data in main-memory databases) has been implemented in forward.py.  The two algorithms were then compared and experiments showed the potential of this work to decrease the query execution time. There is an average time gain of 43.392% gain when queries are run on the post hot-cold separation. 
